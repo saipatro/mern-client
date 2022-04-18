@@ -24,9 +24,11 @@ function App() {
   const [isToastOpen, setIsToastOpen] = useState(false);
   const [newItem, setNewItem] = useState({text: ''});
 
+  const BASE_API_URL = process.env.BASE_API_URL || 'http://localhost:9000';
+
   const addItem = () => {
     if(newItem.text !== ''){
-      axios.post(`http://localhost:9000/post/create`, {text: newItem.text})
+      axios.post(`${BASE_API_URL}/create`, {text: newItem.text})
         .then(() => fetchTODO())
         setNewItem({text: ''});
     }
@@ -37,7 +39,7 @@ function App() {
   }
 
   const fetchTODO = async() => {
-    await axios.get('http://localhost:9000/posts')
+    await axios.get(`${BASE_API_URL}/posts`)
       .then(res => setData(res.data))
   }
     
@@ -51,12 +53,12 @@ function App() {
   }
 
   const handleDelete = async(itemId) => {
-    await axios.delete(`http://localhost:9000/post/${itemId}`)
+    await axios.delete(`${BASE_API_URL}/post/${itemId}`)
       .then(() => fetchTODO())
   }
 
   const handleToggleStatus = (item) => {
-      axios.put(`http://localhost:9000/post/${item._id}`, {...item, complete: !item.complete})
+      axios.put(`${BASE_API_URL}/post/${item._id}`, {...item, complete: !item.complete})
         .then(() => fetchTODO());
         // setCurrItem({});
         setUpdatedItem({});
@@ -64,7 +66,7 @@ function App() {
 
   const handleUpdate = () => {
     if(updatedItem.text){
-      axios.put(`http://localhost:9000/post/${currItem._id}`, {...currItem, text: updatedItem.text})
+      axios.put(`${BASE_API_URL}/post/${currItem._id}`, {...currItem, text: updatedItem.text})
         .then(() => fetchTODO());
         setIsToastOpen(true);
       }
@@ -152,7 +154,7 @@ function App() {
           onClose={() => setIsToastOpen(false)}
           message="Item updated"
           onClick={() => setIsToastOpen(false)}
-          anchorOrigin={{   vertical: 'bottom', horizontal: 'right', }}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right', }}
         />
     </div>
   );
