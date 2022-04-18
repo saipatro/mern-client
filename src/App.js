@@ -24,7 +24,7 @@ function App() {
   const [isToastOpen, setIsToastOpen] = useState(false);
   const [newItem, setNewItem] = useState({text: ''});
 
-  const BASE_API_URL = process.env.BASE_API_URL || 'http://localhost:9000';
+  const BASE_API_URL = 'https://todo-mern-app-demo.herokuapp.com';
 
   const addItem = () => {
     if(newItem.text !== ''){
