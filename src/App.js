@@ -28,7 +28,7 @@ function App() {
 
   const addItem = () => {
     if(newItem.text !== ''){
-      axios.post(`${BASE_API_URL}/create`, {text: newItem.text})
+      axios.post(`${BASE_API_URL}/post/create`, {text: newItem.text})
         .then(() => fetchTODO())
         setNewItem({text: ''});
     }
